@@ -22,4 +22,4 @@ Valor = [3, 6, 9]   # Vetor de valores
 Peso = [2, 3, 6]    # Vetor de peso 
 Mochila = 10        # Capacidade da mochila 
 NumItens = len(Valor)   # apenas para pegar a quantidade de itens 
-print "Valor maximo sera: R$",knapSack(Mochila , Peso , Valor , NumItens)
+print("Valor máximo será: R$",knapSack(Mochila , Peso , Valor , NumItens))
