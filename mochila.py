@@ -1,5 +1,5 @@
     # Função recursiva principal
-def knapSack(Mochila , Peso , Valor , NumItens): 
+def funcao_mochila(Mochila , Peso , Valor , NumItens): 
     
     # Condição para parar: quando acabar os itens ou a  mochila estiver cheia 
     if NumItens == 0 or Mochila == 0 : 
@@ -7,12 +7,12 @@ def knapSack(Mochila , Peso , Valor , NumItens):
 
     # Condição quando o item em questão não couber na mochila 
     if (Peso[NumItens-1] > Mochila): 
-        return knapSack(Mochila , Peso , Valor , NumItens-1) 
+        return funcao_mochila(Mochila , Peso , Valor , NumItens-1) 
 
     # Parte principal da função: retorna o valor maximo possivel em reais 
     else: 
-        return max(Valor[NumItens-1] + knapSack(Mochila-Peso[NumItens-1] , Peso , Valor ,
-        NumItens-1),knapSack(Mochila , Peso , Valor , NumItens-1)) 
+        return max(Valor[NumItens-1] + funcao_mochila(Mochila-Peso[NumItens-1] , Peso , Valor ,
+        NumItens-1),funcao_mochila(Mochila , Peso , Valor , NumItens-1)) 
   
 
 # Os itens são divididos em 2 vetores: valor e peso 
@@ -22,4 +22,4 @@ Valor = [3, 6, 9]   # Vetor de valores
 Peso = [2, 3, 6]    # Vetor de peso 
 Mochila = 10        # Capacidade da mochila 
 NumItens = len(Valor)   # apenas para pegar a quantidade de itens 
-print("Valor máximo será: R$",knapSack(Mochila , Peso , Valor , NumItens))
+print("Valor máximo será: R$",funcao_mochila(Mochila , Peso , Valor , NumItens))
