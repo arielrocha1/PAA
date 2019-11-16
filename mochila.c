@@ -1,38 +1,36 @@
+/* A Naive recursive implementation of 0-1 Knapsack problem */
 #include<stdio.h> 
   
-    /* Função apenas para retornar o numero maior */
-int max(int a, int b){ 
-    return (a > b)? a : b;
-    } 
-
-    /* Função recursiva principal */
-int funcao_mochila(int Mochila, int Peso[], int Valor[], int NumItens){ 
-   
-    /* Condição para parar: quando acabar os itens ou a  mochila estiver cheia */
-   if (NumItens == 0 || Mochila == 0){
-       return 0;
-
-    /* Condição quando o item em questão não couber na mochila */
-   }if (Peso[NumItens-1] > Mochila){ 
-       return funcao_mochila(Mochila, Peso, Valor, NumItens-1);
-
-    /* Parte principal da função: retorna o valor maximo possivel em reais */
-   }else{
-       return max( Valor[NumItens-1] + funcao_mochila(Mochila-Peso[NumItens-1],
-        Peso, Valor, NumItens-1),funcao_mochila(Mochila, Peso, Valor, NumItens-1));
-   }
-
-}
+// A utility function that returns maximum of two integers 
+int max(int a, int b) { return (a > b)? a : b; } 
   
-int main(){ 
-    
-    /* Os itens são divididos em 2 vetores: valor e peso */
-    /* Cada item está separado por indice no vetor: vetor peso e valor no indice 1
-        representa o peso e o valor do item 1, por exemplo*/
-    int Valor[] = {3, 6, 9};    /* Vetor de valores */
-    int Peso[] = {2, 3, 6};     /* Vetor de peso */
-    int Mochila = 10;           /* Capacidade da mochila */
-    int NumItens = sizeof(Valor)/sizeof(Valor[0]); /* Apenas para pegar a quantidade de itens */
-    printf("Valor máximo será: R$ %d \n", funcao_mochila(Mochila, Peso, Valor, NumItens)); 
+// Returns the maximum value that can be put in a knapsack of capacity W 
+int knapSack(int W, int wt[], int val[], int n) 
+{ 
+   // Base Case 
+   if (n == 0 || W == 0) 
+       return 0; 
+  
+   // If weight of the nth item is more than Knapsack capacity W, then 
+   // this item cannot be included in the optimal solution 
+   if (wt[n-1] > W) 
+       return knapSack(W, wt, val, n-1); 
+  
+   // Return the maximum of two cases:  
+   // (1) nth item included  
+   // (2) not included 
+   else return max( val[n-1] + knapSack(W-wt[n-1], wt, val, n-1), 
+                    knapSack(W, wt, val, n-1) 
+                  ); 
+} 
+  
+// Driver program to test above function 
+int main() 
+{ 
+    int val[] = {60, 100, 120}; 
+    int wt[] = {10, 20, 30}; 
+    int  W = 50; 
+    int n = sizeof(val)/sizeof(val[0]); 
+    printf("%d", knapSack(W, wt, val, n)); 
     return 0; 
-}
+} 
